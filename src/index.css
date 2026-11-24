@@ -1,0 +1,97 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateX(12px); }
+  to   { opacity: 1; transform: translateX(0); }
+}
+
+.animate-fadeIn {
+  animation: fadeIn 0.35s ease forwards;
+}
+
+@layer base {
+  body {
+    font-family: 'Inter', sans-serif;
+    color: #1E293B;
+    background-color: #FFFFFF;
+    overflow-x: hidden;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: 'Space Grotesk', sans-serif;
+    letter-spacing: -0.025em;
+  }
+}
+
+/* Custom Smooth Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+::-webkit-scrollbar-track {
+  background: #0B0F19;
+}
+::-webkit-scrollbar-thumb {
+  background: #2D3748;
+  border-radius: 9999px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #FF5A00;
+}
+
+.text-gradient-orange {
+  background: linear-gradient(135deg, #FF5A00 0%, #FF8C38 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.bg-dot-pattern {
+  background-image: radial-gradient(#CBD5E1 1px, transparent 1px);
+  background-size: 24px 24px;
+}
+
+.bg-grid-dark {
+  background-image: linear-gradient(to right, rgba(255, 255, 255, 0.05) 1px, transparent 1px),
+                    linear-gradient(to bottom, rgba(255, 255, 255, 0.05) 1px, transparent 1px);
+  background-size: 36px 36px;
+}
+
+/* =========================================================================
+   GLOBAL TEXT HOVER: ANY TEXT HOVERED TURNS SOLAR ORANGE (#FF5A00)
+   ========================================================================= */
+
+h1, h2, h3, h4, h5, h6, p, li, a, label, td, th {
+  transition: color 0.18s ease-in-out;
+}
+
+h1:hover, h2:hover, h3:hover, h4:hover, h5:hover, h6:hover,
+p:hover, li:hover, a:hover, label:hover, td:hover {
+  color: #FF5A00 !important;
+}
+
+/* Protection for buttons with orange background */
+button[class*="bg-\[\#FF5A00\]"],
+button[class*="bg-\[\#FF5A00\]"] *,
+button[class*="hover:bg-\[\#FF5A00\]"]:hover,
+button[class*="hover:bg-\[\#FF5A00\]"]:hover * {
+  color: #FFFFFF !important;
+}
+
+/* Protection for orange footer: text hovers to crisp white with glow */
+footer,
+footer * {
+  transition: color 0.18s ease-in-out, transform 0.18s ease-in-out;
+}
+
+footer a:hover,
+footer button:hover,
+footer li:hover,
+footer p:hover,
+footer span:hover {
+  color: #FFFFFF !important;
+}
+
