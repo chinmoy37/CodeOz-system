@@ -1,4 +1,4 @@
-import React, { useState, useMemo } from 'react';
+import { useState, useMemo } from 'react';
 import { Link } from 'react-router-dom';
 import { Search, ArrowRight } from 'lucide-react';
 import { ALL_SYSTEMS, CATEGORIES } from '../data/systemsData';
@@ -69,16 +69,23 @@ export function Solutions() {
             key={system.id}
             className="bg-white rounded-3xl border border-slate-200 shadow-sm hover:shadow-xl transition-all duration-300 flex flex-col justify-between overflow-hidden group"
           >
-            {system.image && (
-              <div className="h-44 w-full overflow-hidden bg-slate-900 relative">
+            {/* ✅ FIX #8: Image with fallback gradient if missing */}
+            <div className="h-44 w-full overflow-hidden bg-slate-900 relative">
+              {system.image ? (
                 <img
                   src={system.image}
                   alt={system.title}
+                  loading="lazy"
+                  onError={(e) => { (e.currentTarget as HTMLImageElement).style.display = 'none'; }}
                   className="w-full h-full object-cover object-top group-hover:scale-105 transition-transform duration-500"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent pointer-events-none" />
-              </div>
-            )}
+              ) : (
+                <div className={`w-full h-full bg-gradient-to-br ${system.mockupBg} flex items-center justify-center`}>
+                  <system.icon className="w-12 h-12 text-white/40" />
+                </div>
+              )}
+              <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent pointer-events-none" />
+            </div>
             <div className={`p-6 bg-gradient-to-br ${system.mockupBg} border-b border-slate-100 flex items-center justify-between`}>
               <div className="flex items-center gap-2 text-xs font-bold text-slate-900 bg-white/90 backdrop-blur-sm px-3 py-1 rounded-full border border-slate-200">
                 <system.icon className="w-3.5 h-3.5 text-[#FF5A00]" />

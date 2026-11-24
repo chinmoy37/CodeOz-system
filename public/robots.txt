@@ -1,0 +1,8 @@
+User-agent: *
+Allow: /
+
+# Disallow build output
+Disallow: /dist/
+
+# Sitemap location
+Sitemap: https://codeoz.org/sitemap.xml

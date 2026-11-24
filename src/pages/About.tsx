@@ -1,4 +1,3 @@
-import React from 'react';
 import {
   Check,
   Compass,
@@ -16,8 +15,9 @@ export function About() {
         <div className="lg:col-span-5 relative">
           <div className="relative rounded-[2rem] overflow-hidden shadow-2xl border border-slate-200 aspect-[4/5] bg-slate-100">
             <img
-              src="/about-workspace.png?v=2"
+              src="/about-workspace.png"
               alt="CodeOz Engineering & Product Design Studio"
+              loading="lazy"
               className="w-full h-full object-cover object-center"
             />
             {/* Floating Dark Card Badge */}

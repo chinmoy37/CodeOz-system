@@ -1,7 +1,5 @@
 import React, { useState } from 'react';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
-import { clsx } from 'clsx';
-import { Badge } from './Badge';
 
 export interface Column<T> {
   header: string;

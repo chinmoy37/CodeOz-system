@@ -1,5 +1,5 @@
-import React, { useState, useEffect, useRef, useCallback } from 'react';
-import { Maximize2, X, Sparkles, ArrowRight } from 'lucide-react';
+import { useState, useEffect, useRef, useCallback } from 'react';
+import { Maximize2, X, Sparkles, ArrowRight, ChevronLeft, ChevronRight } from 'lucide-react';
 
 export interface DashboardItem {
   id: string;
@@ -9,131 +9,41 @@ export interface DashboardItem {
   image: string;
   specs: string;
   description: string;
-  tag: string; // filter tab key
+  tag: string;
 }
 
 // ── Filter tabs ─────────────────────────────────────────────────────────────
 export const FILTER_TABS = [
-  { key: 'all',           label: 'All' },
-  { key: 'erp',           label: 'Manufacturing & ERP' },
-  { key: 'healthcare',    label: 'Healthcare' },
-  { key: 'retail',        label: 'Retail & POS' },
-  { key: 'finance-hr',    label: 'Finance & HR' },
-  { key: 'education',     label: 'Education' },
-  { key: 'logistics',     label: 'Logistics' },
+  { key: 'all',        label: 'All' },
+  { key: 'erp',        label: 'Manufacturing & ERP' },
+  { key: 'healthcare', label: 'Healthcare' },
+  { key: 'retail',     label: 'Retail & POS' },
+  { key: 'finance-hr', label: 'Finance & HR' },
+  { key: 'education',  label: 'Education' },
+  { key: 'logistics',  label: 'Logistics' },
 ];
 
 export const DASHBOARD_ITEMS: DashboardItem[] = [
-  {
-    id: 'fleet',
-    title: 'Fleetbase Operations & Logistics Dashboard',
-    category: 'LOGISTICS & FLEET',
-    location: 'ENTERPRISE',
-    image: '/dashboards/fleet.png',
-    specs: 'Live GPS · 59,306 Deliveries · 90.7% Fuel Efficiency',
-    description: 'Real-time vehicle map tracking, delivery route dispatch, driver performance KPIs, and multi-hub manifest reconciliation.',
-    tag: 'logistics',
-  },
-  {
-    id: 'approval',
-    title: 'Approval Management System',
-    category: 'WORKFLOW & GOVERNANCE',
-    location: 'CORPORATE',
-    image: '/dashboards/approval.png',
-    specs: 'Multi-tier RBAC · 4.2h Avg Approval · 110 Approved/Week',
-    description: 'Expense reports, leave authorizations, and multi-department approval queues with full audit history.',
-    tag: 'finance-hr',
-  },
-  {
-    id: 'hrm',
-    title: 'Human Resource Management Suite',
-    category: 'WORKFORCE & PAYROLL',
-    location: 'MULTI-BRANCH',
-    image: '/dashboards/hrm.png',
-    specs: 'Biometric Sync · One-Click Payroll · Self-Service Portal',
-    description: 'Attendance tracking, job pipelines, employee records, shift scheduling, and statutory tax reporting.',
-    tag: 'finance-hr',
-  },
-  {
-    id: 'project',
-    title: 'Project Management & Agile Dashboard',
-    category: 'AGILE & ENGINEERING',
-    location: 'OPERATIONS',
-    image: '/dashboards/project.png',
-    specs: '12 Active Projects · Milestone Burndown · Critical Path',
-    description: 'Active project overview, task boards, upcoming milestones, and team resource allocation charts.',
-    tag: 'erp',
-  },
-  {
-    id: 'mis',
-    title: 'Management Information System',
-    category: 'EXECUTIVE ANALYTICS',
-    location: 'GLOBAL',
-    image: '/dashboards/mis.png',
-    specs: '$19,821.3B Revenue · 14.75% Margin · 90% Efficiency',
-    description: 'Divisional performance, multi-year sales trends, resource utilization, and board-level reporting.',
-    tag: 'healthcare',
-  },
-  {
-    id: 'erp',
-    title: 'Enterprise Resource Planning Core',
-    category: 'ENTERPRISE SUITE',
-    location: 'HEADQUARTERS',
-    image: '/dashboards/erp.png',
-    specs: 'SFMIS · ARMS · PLMS · 13 Document Archives',
-    description: 'Unified cockpit for financial vouchers, procurement, asset lifecycles, and case workflows.',
-    tag: 'erp',
-  },
-  {
-    id: 'restaurant',
-    title: 'Restaurant POS & Kitchen Display',
-    category: 'HOSPITALITY & POS',
-    location: 'RESTAURANT CHAIN',
-    image: '/dashboards/restaurant.png',
-    specs: 'Table Occupancy · KDS Sync · 12m Kitchen Prep Time',
-    description: 'Interactive floor layout, real-time Kitchen Order Tickets, waiter tablets, and menu recipes.',
-    tag: 'retail',
-  },
-  {
-    id: 'crm',
-    title: 'Customer Lifecycle & CRM Pipeline',
-    category: 'SALES & MARKETING',
-    location: 'COMMERCIAL',
-    image: '/dashboards/crm.png',
-    specs: '$18.5k Contacts · 412 Opportunities · 91% Satisfaction',
-    description: 'Customer lifecycle funnel (Lead → Won), pipeline by team, product rankings, and activity feed.',
-    tag: 'retail',
-  },
-  {
-    id: 'lms',
-    title: 'Learning Management System Academy',
-    category: 'EDUCATION & EDTECH',
-    location: 'ACADEMY',
-    image: '/dashboards/lms.png',
-    specs: '110 Courses · 78% Completion · Student Leaderboard',
-    description: 'Course enrollment analytics, completion gauges, grade rankings, and assessment timelines.',
-    tag: 'education',
-  },
-  {
-    id: 'inventory',
-    title: 'Product & Inventory Management',
-    category: 'SUPPLY CHAIN & RETAIL',
-    location: 'WAREHOUSE',
-    image: '/dashboards/inventory.png',
-    specs: 'Recipe Builder · Stock Transactions · Unit Pricing',
-    description: 'Item categorization, unit conversion, stock movement logs, and purchase requisitions.',
-    tag: 'retail',
-  },
+  { id: 'fleet',     title: 'Fleetbase Operations & Logistics Dashboard', category: 'LOGISTICS & FLEET',    location: 'ENTERPRISE',       image: '/dashboards/fleet.png',      specs: 'Live GPS · 59,306 Deliveries · 90.7% Fuel Efficiency',         description: 'Real-time vehicle map tracking, delivery route dispatch, driver performance KPIs, and multi-hub manifest reconciliation.',          tag: 'logistics'  },
+  { id: 'approval',  title: 'Approval Management System',                 category: 'WORKFLOW & GOVERNANCE', location: 'CORPORATE',        image: '/dashboards/approval.png',   specs: 'Multi-tier RBAC · 4.2h Avg Approval · 110 Approved/Week',      description: 'Expense reports, leave authorizations, and multi-department approval queues with full audit history.',                              tag: 'finance-hr' },
+  { id: 'hrm',       title: 'Human Resource Management Suite',            category: 'WORKFORCE & PAYROLL',   location: 'MULTI-BRANCH',     image: '/dashboards/hrm.png',        specs: 'Biometric Sync · One-Click Payroll · Self-Service Portal',      description: 'Attendance tracking, job pipelines, employee records, shift scheduling, and statutory tax reporting.',                             tag: 'finance-hr' },
+  { id: 'project',   title: 'Project Management & Agile Dashboard',       category: 'AGILE & ENGINEERING',   location: 'OPERATIONS',       image: '/dashboards/project.png',    specs: '12 Active Projects · Milestone Burndown · Critical Path',       description: 'Active project overview, task boards, upcoming milestones, and team resource allocation charts.',                                  tag: 'erp'        },
+  { id: 'mis',       title: 'Management Information System',              category: 'EXECUTIVE ANALYTICS',   location: 'GLOBAL',           image: '/dashboards/mis.png',        specs: '$19,821.3B Revenue · 14.75% Margin · 90% Efficiency',           description: 'Divisional performance, multi-year sales trends, resource utilization, and board-level reporting.',                                tag: 'healthcare' },
+  { id: 'erp',       title: 'Enterprise Resource Planning Core',          category: 'ENTERPRISE SUITE',      location: 'HEADQUARTERS',     image: '/dashboards/erp.png',        specs: 'SFMIS · ARMS · PLMS · 13 Document Archives',                    description: 'Unified cockpit for financial vouchers, procurement, asset lifecycles, and case workflows.',                                       tag: 'erp'        },
+  { id: 'restaurant',title: 'Restaurant POS & Kitchen Display',           category: 'HOSPITALITY & POS',     location: 'RESTAURANT CHAIN', image: '/dashboards/restaurant.png', specs: 'Table Occupancy · KDS Sync · 12m Kitchen Prep Time',            description: 'Interactive floor layout, real-time Kitchen Order Tickets, waiter tablets, and menu recipes.',                                    tag: 'retail'     },
+  { id: 'crm',       title: 'Customer Lifecycle & CRM Pipeline',          category: 'SALES & MARKETING',     location: 'COMMERCIAL',       image: '/dashboards/crm.png',        specs: '$18.5k Contacts · 412 Opportunities · 91% Satisfaction',        description: 'Customer lifecycle funnel (Lead → Won), pipeline by team, product rankings, and activity feed.',                                  tag: 'retail'     },
+  { id: 'lms',       title: 'Learning Management System Academy',         category: 'EDUCATION & EDTECH',    location: 'ACADEMY',          image: '/dashboards/lms.png',        specs: '110 Courses · 78% Completion · Student Leaderboard',            description: 'Course enrollment analytics, completion gauges, grade rankings, and assessment timelines.',                                        tag: 'education'  },
+  { id: 'inventory', title: 'Product & Inventory Management',             category: 'SUPPLY CHAIN & RETAIL', location: 'WAREHOUSE',        image: '/dashboards/inventory.png',  specs: 'Recipe Builder · Stock Transactions · Unit Pricing',             description: 'Item categorization, unit conversion, stock movement logs, and purchase requisitions.',                                            tag: 'retail'     },
 ];
 
-// ── Ring constants ─────────────────────────────────────────────────────────
+// ── Ring constants ──────────────────────────────────────────────────────────
 const RING_COUNT  = 40;
-const RING_TILT   = 73;    // deg — X tilt to create flat-oval illusion
-const RING_RADIUS = 430;   // px — ring rim radius
-const AUTO_SPEED  = 0.03;  // deg/frame when idle
-const MOUSE_SPEED = 0.18;  // max deg/frame driven by mouse edge
+const RING_TILT   = 73;
+const RING_RADIUS = 430;
+const AUTO_SPEED  = 0.03;
+const MOUSE_SPEED = 0.18;
 
-// ── Component ──────────────────────────────────────────────────────────────
+// ── Component ───────────────────────────────────────────────────────────────
 export const AuroraGallery: React.FC<{
   items?: DashboardItem[];
   subtitle?: string;
@@ -141,18 +51,20 @@ export const AuroraGallery: React.FC<{
   items = DASHBOARD_ITEMS,
   subtitle = 'Explore our production-grade dashboards, ERP platforms, and cloud systems engineered for high-growth businesses.',
 }) => {
-  const [hoveredItem,     setHoveredItem]     = useState<DashboardItem | null>(null);
-  const [hoveredRingIdx,  setHoveredRingIdx]  = useState<number | null>(null);
-  const [modalItem,       setModalItem]       = useState<DashboardItem | null>(null);
-  const [activeTab,       setActiveTab]       = useState('all');
+  const [hoveredItem,    setHoveredItem]    = useState<DashboardItem | null>(null);
+  const [hoveredRingIdx, setHoveredRingIdx] = useState<number | null>(null);
+  const [modalItem,      setModalItem]      = useState<DashboardItem | null>(null);
+  const [activeTab,      setActiveTab]      = useState('all');
 
-  // Refs — all animation state lives here (no React re-renders in the loop)
-  const ringRef       = useRef<HTMLDivElement>(null);
-  const sectionRef    = useRef<HTMLDivElement>(null);
-  const rotAngle      = useRef(0);
-  const rafRef        = useRef<number>();
-  const onSection     = useRef(false);
-  const mouseVel      = useRef(0);   // deg/frame set by mousemove
+  // ✅ FIX #6: Mobile carousel state
+  const [mobileIdx, setMobileIdx] = useState(0);
+
+  const ringRef    = useRef<HTMLDivElement>(null);
+  const sectionRef = useRef<HTMLDivElement>(null);
+  const rotAngle   = useRef(0);
+  const rafRef     = useRef<number>(0);
+  const onSection  = useRef(false);
+  const mouseVel   = useRef(0);
 
   // ── RAF animation loop ───────────────────────────────────────────────────
   useEffect(() => {
@@ -172,24 +84,37 @@ export const AuroraGallery: React.FC<{
   const handleMouseMove = useCallback((e: React.MouseEvent<HTMLDivElement>) => {
     if (!sectionRef.current) return;
     const rect = sectionRef.current.getBoundingClientRect();
-    // normalizedX: -1 (far left) → +1 (far right)
     const nx = ((e.clientX - rect.left) / rect.width) * 2 - 1;
     mouseVel.current = nx * MOUSE_SPEED;
   }, []);
 
-  // ── ESC closes modal ─────────────────────────────────────────────────────
+  // ✅ FIX #7: ESC closes modal (already existed) + body scroll lock
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => { if (e.key === 'Escape') setModalItem(null); };
     window.addEventListener('keydown', onKey);
-    return () => window.removeEventListener('keydown', onKey);
-  }, []);
+    if (modalItem) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = '';
+    }
+    return () => {
+      window.removeEventListener('keydown', onKey);
+      document.body.style.overflow = '';
+    };
+  }, [modalItem]);
 
   const activeItem = hoveredItem;
 
-  // Filtered items for the ring
   const filteredItems = activeTab === 'all'
     ? items
     : items.filter(it => it.tag === activeTab);
+
+  // ✅ FIX #6: Mobile prev/next handlers
+  const mobilePrev = () => setMobileIdx(i => (i - 1 + filteredItems.length) % filteredItems.length);
+  const mobileNext = () => setMobileIdx(i => (i + 1) % filteredItems.length);
+
+  // Reset mobile index when tab changes
+  useEffect(() => { setMobileIdx(0); }, [activeTab]);
 
   return (
     <section
@@ -217,7 +142,7 @@ export const AuroraGallery: React.FC<{
         <p className="mt-3 text-slate-500 text-sm max-w-xl mx-auto leading-relaxed">{subtitle}</p>
       </div>
 
-      {/* ── Filter Tabs ─────────────────────────────────────────────────────── */}
+      {/* ── Filter Tabs ──────────────────────────────────────────────────── */}
       <div className="relative z-10 flex flex-wrap justify-center gap-2 px-4 mb-2">
         {FILTER_TABS.map(tab => (
           <button
@@ -234,12 +159,75 @@ export const AuroraGallery: React.FC<{
         ))}
       </div>
 
-      {/* ── 3D Stage ─────────────────────────────────────────────────────── */}
+      {/* ✅ FIX #6: Mobile carousel — shown only on small screens */}
+      <div className="md:hidden relative z-10 px-4 py-6">
+        {filteredItems.length > 0 && (
+          <div className="relative">
+            <div
+              className="rounded-2xl overflow-hidden border-2 border-[#FF5A00] shadow-xl cursor-pointer"
+              style={{ aspectRatio: '16/10', background: '#0B0F19' }}
+              onClick={() => setModalItem(filteredItems[mobileIdx])}
+            >
+              <img
+                src={filteredItems[mobileIdx].image}
+                alt={filteredItems[mobileIdx].title}
+                loading="lazy"
+                className="w-full h-full object-cover object-top"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent flex items-end p-4">
+                <div>
+                  <div className="text-[10px] font-mono text-[#FF5A00] font-bold uppercase mb-1">
+                    {filteredItems[mobileIdx].category}
+                  </div>
+                  <div className="text-white font-bold text-sm leading-snug">
+                    {filteredItems[mobileIdx].title}
+                  </div>
+                  <div className="text-slate-300 text-[11px] mt-1 font-mono">
+                    {filteredItems[mobileIdx].specs}
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* Prev / Next buttons */}
+            <button
+              onClick={mobilePrev}
+              aria-label="Previous dashboard"
+              className="absolute left-2 top-1/2 -translate-y-1/2 w-9 h-9 rounded-full bg-black/60 text-white flex items-center justify-center hover:bg-[#FF5A00] transition-colors"
+            >
+              <ChevronLeft className="w-5 h-5" />
+            </button>
+            <button
+              onClick={mobileNext}
+              aria-label="Next dashboard"
+              className="absolute right-2 top-1/2 -translate-y-1/2 w-9 h-9 rounded-full bg-black/60 text-white flex items-center justify-center hover:bg-[#FF5A00] transition-colors"
+            >
+              <ChevronRight className="w-5 h-5" />
+            </button>
+
+            {/* Dot indicators */}
+            <div className="flex justify-center gap-1.5 mt-3">
+              {filteredItems.map((_, idx) => (
+                <button
+                  key={idx}
+                  onClick={() => setMobileIdx(idx)}
+                  aria-label={`Go to dashboard ${idx + 1}`}
+                  className={`w-1.5 h-1.5 rounded-full transition-all ${
+                    idx === mobileIdx ? 'bg-[#FF5A00] w-4' : 'bg-slate-300'
+                  }`}
+                />
+              ))}
+            </div>
+          </div>
+        )}
+      </div>
+
+      {/* ── 3D Stage — desktop only ──────────────────────────────────────── */}
       <div
-        className="relative flex items-center justify-center"
+        className="hidden md:flex relative items-center justify-center"
         style={{ height: 580, perspective: 1300 }}
       >
-        {/* Ring plane — RAF updates its transform directly */}
+        {/* Ring plane */}
         <div
           ref={ringRef}
           style={{
@@ -253,16 +241,19 @@ export const AuroraGallery: React.FC<{
             const item     = filteredItems[i % filteredItems.length];
             const angleDeg = (i / RING_COUNT) * 360;
             const isHov    = hoveredRingIdx === i;
-
-            const liftY = isHov ? -28 : 0;
-            const scale = isHov ? 1.4  : 1;
+            const liftY    = isHov ? -28 : 0;
+            const scale    = isHov ? 1.4 : 1;
 
             return (
               <div
                 key={i}
+                role="button"
+                aria-label={`View ${item.title}`}
+                tabIndex={0}
                 onMouseEnter={() => { setHoveredRingIdx(i); setHoveredItem(item); }}
                 onMouseLeave={() => { setHoveredRingIdx(null); setHoveredItem(null); }}
                 onClick={() => setModalItem(item)}
+                onKeyDown={(e) => { if (e.key === 'Enter') setModalItem(item); }}
                 style={{
                   position:        'absolute',
                   top:             '50%',
@@ -276,13 +267,9 @@ export const AuroraGallery: React.FC<{
                   backgroundPosition: 'center',
                   borderRadius:    7,
                   cursor:          'pointer',
-                  border: isHov
-                    ? '2.5px solid #FF5A00'
-                    : '1.5px solid rgba(200,200,200,0.5)',
-                  boxShadow: isHov
-                    ? '0 16px 40px rgba(255,90,0,0.55)'
-                    : '0 2px 8px rgba(0,0,0,0.18)',
-                  opacity: isHov ? 1 : 0.70,
+                  border:          isHov ? '2.5px solid #FF5A00' : '1.5px solid rgba(200,200,200,0.5)',
+                  boxShadow:       isHov ? '0 16px 40px rgba(255,90,0,0.55)' : '0 2px 8px rgba(0,0,0,0.18)',
+                  opacity:         isHov ? 1 : 0.70,
                   transform: [
                     `rotateZ(${angleDeg}deg)`,
                     `translateX(${RING_RADIUS}px)`,
@@ -299,13 +286,10 @@ export const AuroraGallery: React.FC<{
           })}
         </div>
 
-        {/* ── Center: shows hovered card's image + details ────────────── */}
+        {/* Center: hovered card details */}
         <div className="relative z-20 flex gap-5 items-center">
-
           {activeItem ? (
-            /* ── Hovered state: image + details ── */
             <>
-              {/* Image card */}
               <div
                 key={activeItem.id}
                 className="group relative overflow-hidden rounded-2xl shadow-2xl border-2 border-[#FF5A00] cursor-pointer animate-fadeIn"
@@ -316,6 +300,7 @@ export const AuroraGallery: React.FC<{
                 <img
                   src={activeItem.image}
                   alt={activeItem.title}
+                  loading="lazy"
                   className="w-full h-full object-cover object-top transition-transform duration-500 group-hover:scale-105"
                 />
                 <div className="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center backdrop-blur-[2px]">
@@ -326,17 +311,12 @@ export const AuroraGallery: React.FC<{
                 </div>
               </div>
 
-              {/* Details panel */}
               <div key={activeItem.id + '-detail'} className="hidden md:flex flex-col gap-2.5 max-w-[210px] animate-fadeIn">
                 <div className="text-[10px] font-mono font-bold tracking-widest text-[#FF5A00] uppercase">
                   {activeItem.category} · {activeItem.location}
                 </div>
-                <h3 className="font-extrabold text-slate-900 text-sm leading-snug">
-                  {activeItem.title}
-                </h3>
-                <p className="text-slate-500 text-xs leading-relaxed">
-                  {activeItem.description}
-                </p>
+                <h3 className="font-extrabold text-slate-900 text-sm leading-snug">{activeItem.title}</h3>
+                <p className="text-slate-500 text-xs leading-relaxed">{activeItem.description}</p>
                 <div className="text-[10px] font-mono text-slate-400 leading-relaxed border-l-2 border-[#FF5A00] pl-2">
                   {activeItem.specs}
                 </div>
@@ -348,16 +328,16 @@ export const AuroraGallery: React.FC<{
                 </button>
               </div>
             </>
-          ) : (
-            /* ── Idle: nothing shown ── */
-            null
-          )}
+          ) : null}
         </div>
       </div>
 
       {/* ── Fullscreen modal ─────────────────────────────────────────────── */}
       {modalItem && (
         <div
+          role="dialog"
+          aria-modal="true"
+          aria-label={modalItem.title}
           className="fixed inset-0 z-50 flex items-center justify-center bg-black/90 backdrop-blur-md p-4"
           onClick={() => setModalItem(null)}
         >
@@ -368,6 +348,7 @@ export const AuroraGallery: React.FC<{
             <div className="absolute top-0 left-0 w-3 h-3 bg-[#FF5A00] z-20" />
             <button
               onClick={() => setModalItem(null)}
+              aria-label="Close modal"
               className="absolute top-4 right-4 z-30 p-2.5 rounded-full bg-black/70 text-white hover:text-[#FF5A00] border border-slate-700 transition-colors"
             >
               <X className="w-5 h-5" />
@@ -376,6 +357,7 @@ export const AuroraGallery: React.FC<{
               <img
                 src={modalItem.image}
                 alt={modalItem.title}
+                loading="lazy"
                 className="w-full h-auto max-h-[75vh] object-contain rounded-lg"
               />
             </div>

@@ -33,3 +33,6 @@ Thumbs.db
 # Temporary files
 *.tmp
 *.log
+  
+# Large original assets  
+public/assets/logo-original.png 
